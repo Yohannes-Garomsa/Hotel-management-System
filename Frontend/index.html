@@ -1,0 +1,213 @@
+echo '<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Luxury Hotel Management System" />
+    <title>Geda Hotel | Management System</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <i class="fas fa-hotel"></i>
+          <h1>Geda Hotel</h1>
+        </div>
+        <ul class="nav-menu">
+          <li>
+            <a href="index.html" class="active"
+              ><i class="fas fa-home"></i> Dashboard</a
+            >
+          </li>
+          <li>
+            <a href="pages/rooms.html"><i class="fas fa-bed"></i> Rooms</a>
+          </li>
+          <li>
+            <a href="pages/bookings.html"
+              ><i class="fas fa-calendar-check"></i> Bookings</a
+            >
+          </li>
+          <li>
+            <a href="pages/customers.html"
+              ><i class="fas fa-users"></i> Customers</a
+            >
+          </li>
+          <li>
+            <a href="pages/staff.html"><i class="fas fa-user-tie"></i> Staff</a>
+          </li>
+          <li>
+            <a href="pages/reports.html"
+              ><i class="fas fa-chart-bar"></i> Reports</a
+            >
+          </li>
+        </ul>
+        <div class="nav-right">
+          <div class="notification">
+            <i class="fas fa-bell"></i>
+            <span class="badge">3</span>
+          </div>
+          <div class="user-profile">
+            <img
+              src="https://ui-avatars.com/api/?name=Admin+User&background=4F46E5&color=fff"
+              alt="Admin"
+            />
+            <span>Admin User</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard">
+      <div class="dashboard-container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+          <h2>Welcome back, Admin!</h2>
+          <p>Manage your hotel operations efficiently</p>
+          <div class="stats-cards">
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #4f46e5">
+                <i class="fas fa-bed"></i>
+              </div>
+              <div class="stat-info">
+                <h3 id="available-rooms">24</h3>
+                <p>Available Rooms</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #10b981">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="stat-info">
+                <h3 id="total-bookings">156</h3>
+                <p>Today\'s Bookings</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #f59e0b">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="stat-info">
+                <h3 id="occupied-rooms">42</h3>
+                <p>Occupied Rooms</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #ef4444">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              <div class="stat-info">
+                <h3 id="revenue">$12,540</h3>
+                <p>Today\'s Revenue</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <h3>Quick Actions</h3>
+          <div class="action-buttons">
+            <button class="action-btn" onclick="quickAction(\'checkin\')">
+              <i class="fas fa-sign-in-alt"></i>
+              <span>Check-in Guest</span>
+            </button>
+            <button class="action-btn" onclick="quickAction(\'checkout\')">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Check-out Guest</span>
+            </button>
+            <button class="action-btn" onclick="quickAction(\'book\')">
+              <i class="fas fa-plus-circle"></i>
+              <span>New Booking</span>
+            </button>
+            <button class="action-btn" onclick="quickAction(\'room\')">
+              <i class="fas fa-door-open"></i>
+              <span>Add Room</span>
+            </button>
+            <button class="action-btn" onclick="quickAction(\'invoice\')">
+              <i class="fas fa-file-invoice"></i>
+              <span>Generate Invoice</span>
+            </button>
+            <button class="action-btn" onclick="quickAction(\'report\')">
+              <i class="fas fa-print"></i>
+              <span>Print Report</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Recent Bookings Table -->
+        <div class="recent-bookings">
+          <div class="section-header">
+            <h3>Recent Bookings</h3>
+            <a href="pages/bookings.html" class="view-all"
+              >View All <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+          <div class="table-container">
+            <table id="bookings-table">
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Guest Name</th>
+                  <th>Room No</th>
+                  <th>Check-in</th>
+                  <th>Check-out</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="bookings-body">
+                <!-- Data will be loaded by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Room Status Overview -->
+        <div class="room-status">
+          <div class="section-header">
+            <h3>Room Status Overview</h3>
+          </div>
+          <div class="status-grid" id="room-status-grid">
+            <!-- Room status will be loaded by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <p>
+          &copy; 2025 Grand Luxe Hotel Management System. All rights reserved.
+        </p>
+        <div class="footer-links">
+          <a href="#"><i class="fab fa-github"></i> GitHub</a>
+          <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+          <a href="#"><i class="fas fa-cog"></i> Settings</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/data.js"></script>
+  </body>
+</html>
+' > index.html
