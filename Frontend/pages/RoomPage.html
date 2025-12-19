@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Room Management | Grand Luxe Hotel</title>
+    <link rel="stylesheet" href="CSS/style.css" />
+    <link rel="stylesheet" href="CSS/RoomPage.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <i class="fas fa-hotel"></i>
+          <h1>Room Management</h1>
+        </div>
+        <ul class="nav-menu">
+          <li>
+            <a href="../index.html"><i class="fas fa-home"></i> Dashboard</a>
+          </li>
+          <li>
+            <a href="rooms.html" class="active"
+              ><i class="fas fa-bed"></i> Rooms</a
+            >
+          </li>
+          <li>
+            <a href="bookings.html"
+              ><i class="fas fa-calendar-check"></i> Bookings</a
+            >
+          </li>
+          <li>
+            <a href="customers.html"><i class="fas fa-users"></i> Customers</a>
+          </li>
+        </ul>
+        <div class="nav-right">
+          <a href="add-room.html" class="btn-primary"
+            ><i class="fas fa-plus"></i> Add New Room</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="rooms-page">
+      <div class="container">
+        <!-- Room Filters -->
+        <div class="room-filters">
+          <h2>Manage Rooms</h2>
+          <div class="filter-controls">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input
+                type="text"
+                id="room-search"
+                placeholder="Search rooms..."
+              />
+            </div>
+            <select id="room-type-filter">
+              <option value="">All Types</option>
+              <option value="single">Single</option>
+              <option value="double">Double</option>
+              <option value="suite">Suite</option>
+              <option value="deluxe">Deluxe</option>
+            </select>
+            <select id="room-status-filter">
+              <option value="">All Status</option>
+              <option value="available">Available</option>
+              <option value="occupied">Occupied</option>
+              <option value="maintenance">Maintenance</option>
+            </select>
+            <button class="btn-secondary" onclick="clearFilters()">
+              <i class="fas fa-redo"></i> Clear Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Rooms Grid -->
+        <div class="rooms-grid" id="rooms-container">
+          <!-- Rooms will be loaded by JavaScript -->
+        </div>
+
+        <!-- Add Room Modal (hidden by default) -->
+        <div id="addRoomModal" class="modal">
+          <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Add New Room</h2>
+            <form id="add-room-form">
+              <div class="form-group">
+                <label for="room-number">Room Number</label>
+                <input type="text" id="room-number" required />
+              </div>
+              <div class="form-group">
+                <label for="room-type">Room Type</label>
+                <select id="room-type" required>
+                  <option value="single">Single</option>
+                  <option value="double">Double</option>
+                  <option value="suite">Suite</option>
+                  <option value="deluxe">Deluxe</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="room-price">Price per Night ($)</label>
+                <input type="number" id="room-price" min="50" required />
+              </div>
+              <div class="form-group">
+                <label for="room-capacity">Capacity</label>
+                <input
+                  type="number"
+                  id="room-capacity"
+                  min="1"
+                  max="6"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="room-amenities">Amenities (comma separated)</label>
+                <input
+                  type="text"
+                  id="room-amenities"
+                  placeholder="WiFi, TV, AC, Mini Bar"
+                />
+              </div>
+              <div class="form-actions">
+                <button
+                  type="button"
+                  class="btn-secondary"
+                  onclick="closeModal()"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="btn-primary">Add Room</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <p>&copy; 2025 Geda Hotel Management System</p>
+      </div>
+    </footer>
+
+    <script src="assets/JS/script.js"></script>
+    <script src="assets/JS/RoomPage.js"></script>
+  </body>
+</html>

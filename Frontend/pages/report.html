@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reports & Analytics | Geda Hotel</title>
+    <link rel="stylesheet" href="../assets/CSS/style.css" />
+    <link rel="stylesheet" href="../assets/CSS/report.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Chart.js for graphs - Using correct version -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <i class="fas fa-hotel"></i>
+          <h1>Reports & Analytics</h1>
+        </div>
+        <ul class="nav-menu">
+          <li>
+            <a href="../Index2.html"><i class="fas fa-home"></i> Dashboard</a>
+          </li>
+          <li>
+            <a href="RoomPage.html"><i class="fas fa-bed"></i> Rooms</a>
+          </li>
+          <li>
+            <a href="booking.html"
+              ><i class="fas fa-calendar-check"></i> Bookings</a
+            >
+          </li>
+          <li>
+            <a href="customer.html"><i class="fas fa-users"></i> Customers</a>
+          </li>
+          <li>
+            <a href="staff.html"><i class="fas fa-user-tie"></i> Staff</a>
+          </li>
+          <li>
+            <a href="report.html" class="active"
+              ><i class="fas fa-chart-bar"></i> Reports</a
+            >
+          </li>
+        </ul>
+        <div class="nav-right">
+          <button class="btn-primary" onclick="generateReport()">
+            <i class="fas fa-file-export"></i> Generate Report
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="reports-page">
+      <div class="container">
+        <!-- Date Range Selector -->
+        <div class="date-selector">
+          <h2>Analytics Dashboard</h2>
+          <div class="date-controls">
+            <div class="date-input-group">
+              <label for="report-start-date">From:</label>
+              <input type="date" id="report-start-date" value="2024-01-01" />
+            </div>
+            <div class="date-input-group">
+              <label for="report-end-date">To:</label>
+              <input type="date" id="report-end-date" value="2024-01-31" />
+            </div>
+            <select id="report-period">
+              <option value="custom">Custom Range</option>
+              <option value="today">Today</option>
+              <option value="yesterday">Yesterday</option>
+              <option value="week">This Week</option>
+              <option value="month" selected>This Month</option>
+              <option value="quarter">This Quarter</option>
+              <option value="year">This Year</option>
+            </select>
+            <button class="btn-primary" onclick="loadReportData()">
+              <i class="fas fa-sync-alt"></i> Update
+            </button>
+            <button class="btn-secondary" onclick="printReport()">
+              <i class="fas fa-print"></i> Print Report
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <h3>Total Revenue</h3>
+              <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="kpi-value" id="total-revenue">$124,850</div>
+            <div class="kpi-trend positive">
+              <i class="fas fa-arrow-up"></i> 12.5% vs last month
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <h3>Occupancy Rate</h3>
+              <i class="fas fa-bed"></i>
+            </div>
+            <div class="kpi-value" id="occupancy-rate">78.5%</div>
+            <div class="kpi-trend positive">
+              <i class="fas fa-arrow-up"></i> 5.2% vs last month
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <h3>Average Daily Rate</h3>
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="kpi-value" id="average-rate">$185</div>
+            <div class="kpi-trend negative">
+              <i class="fas fa-arrow-down"></i> 2.1% vs last month
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <h3>Guest Satisfaction</h3>
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="kpi-value" id="satisfaction-rate">4.7/5.0</div>
+            <div class="kpi-trend positive">
+              <i class="fas fa-arrow-up"></i> 0.3 vs last month
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+          <!-- Revenue Chart -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Revenue Trend</h3>
+              <select id="revenue-chart-type">
+                <option value="line">Line Chart</option>
+                <option value="bar">Bar Chart</option>
+              </select>
+            </div>
+            <div class="chart-container">
+              <canvas id="revenueChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Occupancy Chart -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Room Occupancy</h3>
+              <select id="occupancy-chart-type">
+                <option value="doughnut">Doughnut Chart</option>
+                <option value="pie">Pie Chart</option>
+              </select>
+            </div>
+            <div class="chart-container">
+              <canvas id="occupancyChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Booking Sources -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Booking Sources</h3>
+              <select id="sources-chart-type">
+                <option value="pie">Pie Chart</option>
+                <option value="bar">Bar Chart</option>
+              </select>
+            </div>
+            <div class="chart-container">
+              <canvas id="sourcesChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Guest Demographics -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Guest Nationality</h3>
+              <select id="nationality-chart-type">
+                <option value="bar">Bar Chart</option>
+                <option value="horizontalBar">Horizontal Bar</option>
+              </select>
+            </div>
+            <div class="chart-container">
+              <canvas id="nationalityChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailed Reports -->
+        <div class="detailed-reports">
+          <div class="section-header">
+            <h3>Detailed Reports</h3>
+            <div class="report-actions">
+              <button class="btn-secondary" onclick="exportToExcel()">
+                <i class="fas fa-file-excel"></i> Export to Excel
+              </button>
+              <button class="btn-secondary" onclick="exportToPDF()">
+                <i class="fas fa-file-pdf"></i> Export to PDF
+              </button>
+            </div>
+          </div>
+
+          <div class="report-tabs">
+            <div class="tab-buttons">
+              <button class="tab-btn active" onclick="switchTab('financial')">
+                Financial Report
+              </button>
+              <button class="tab-btn" onclick="switchTab('occupancy')">
+                Occupancy Report
+              </button>
+              <button class="tab-btn" onclick="switchTab('guest')">
+                Guest Analysis
+              </button>
+              <button class="tab-btn" onclick="switchTab('staff')">
+                Staff Performance
+              </button>
+            </div>
+
+            <div class="tab-content">
+              <div id="financial-tab" class="tab-pane active">
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Room Revenue</th>
+                        <th>Food & Beverage</th>
+                        <th>Other Services</th>
+                        <th>Total Revenue</th>
+                        <th>Expenses</th>
+                        <th>Net Profit</th>
+                      </tr>
+                    </thead>
+                    <tbody id="financial-data">
+                      <!-- Financial data will be loaded here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div id="occupancy-tab" class="tab-pane">
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Room Type</th>
+                        <th>Total Rooms</th>
+                        <th>Occupied</th>
+                        <th>Vacant</th>
+                        <th>Occupancy %</th>
+                        <th>Avg. Rate</th>
+                        <th>Revenue</th>
+                      </tr>
+                    </thead>
+                    <tbody id="occupancy-data">
+                      <!-- Occupancy data will be loaded here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div id="guest-tab" class="tab-pane">
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Guest Type</th>
+                        <th>Count</th>
+                        <th>Avg. Stay</th>
+                        <th>Avg. Spend</th>
+                        <th>Repeat %</th>
+                        <th>Satisfaction</th>
+                      </tr>
+                    </thead>
+                    <tbody id="guest-data">
+                      <!-- Guest data will be loaded here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div id="staff-tab" class="tab-pane">
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Staff Name</th>
+                        <th>Department</th>
+                        <th>Shifts Worked</th>
+                        <th>Guest Rating</th>
+                        <th>Efficiency</th>
+                        <th>Performance</th>
+                      </tr>
+                    </thead>
+                    <tbody id="staff-data">
+                      <!-- Staff data will be loaded here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Report Generation -->
+        <div class="report-generation">
+          <div class="section-header">
+            <h3>Generate Custom Report</h3>
+          </div>
+          <div class="generator-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="report-type">Report Type</label>
+                <select id="report-type">
+                  <option value="daily">Daily Summary</option>
+                  <option value="monthly">Monthly Financial</option>
+                  <option value="occupancy">Occupancy Report</option>
+                  <option value="guest">Guest Statistics</option>
+                  <option value="staff">Staff Performance</option>
+                  <option value="comparison">Period Comparison</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="format-type">Format</label>
+                <select id="format-type">
+                  <option value="pdf">PDF Document</option>
+                  <option value="excel">Excel Spreadsheet</option>
+                  <option value="html">HTML Report</option>
+                  <option value="print">Print Version</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="report-notes">Additional Notes/Requirements</label>
+              <textarea
+                id="report-notes"
+                rows="3"
+                placeholder="Add any specific requirements for the report..."
+              ></textarea>
+            </div>
+            <div class="form-actions">
+              <button class="btn-secondary" onclick="previewReport()">
+                <i class="fas fa-eye"></i> Preview
+              </button>
+              <button class="btn-primary" onclick="generateCustomReport()">
+                <i class="fas fa-download"></i> Generate Report
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Report Preview Modal -->
+    <div id="reportPreviewModal" class="modal">
+      <div class="modal-content wide-modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div id="report-preview-content">
+          <!-- Report preview will be loaded here -->
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <p>&copy; 2025 Geda Hotel Management System</p>
+      </div>
+    </footer>
+
+    <!-- Load script.js first for HotelSystem utilities -->
+    <script src="../assets/JS/script.js"></script>
+    <script src="../assets/JS/report.js"></script>
+  </body>
+</html>

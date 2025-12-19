@@ -1,11 +1,11 @@
-echo '<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Luxury Hotel Management System" />
+    <meta name="description" content="Geda Hotel Management System" />
     <title>Geda Hotel | Management System</title>
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/CSS/style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -22,24 +22,24 @@ echo '<!DOCTYPE html>
       <div class="nav-container">
         <div class="logo">
           <i class="fas fa-hotel"></i>
-          <h1>Geda Hotel</h1>
+          <h1>Geda Hotel Management System</h1>
         </div>
         <ul class="nav-menu">
           <li>
-            <a href="index.html" class="active"
+            <a href="Index2.html" class="active"
               ><i class="fas fa-home"></i> Dashboard</a
             >
           </li>
           <li>
-            <a href="pages/rooms.html"><i class="fas fa-bed"></i> Rooms</a>
+            <a href="pages/RoomPage.html"><i class="fas fa-bed"></i> Rooms</a>
           </li>
           <li>
-            <a href="pages/bookings.html"
+            <a href="pages/booking.html"
               ><i class="fas fa-calendar-check"></i> Bookings</a
             >
           </li>
           <li>
-            <a href="pages/customers.html"
+            <a href="pages/customer.html"
               ><i class="fas fa-users"></i> Customers</a
             >
           </li>
@@ -47,7 +47,7 @@ echo '<!DOCTYPE html>
             <a href="pages/staff.html"><i class="fas fa-user-tie"></i> Staff</a>
           </li>
           <li>
-            <a href="pages/reports.html"
+            <a href="pages/report.html"
               ><i class="fas fa-chart-bar"></i> Reports</a
             >
           </li>
@@ -92,7 +92,7 @@ echo '<!DOCTYPE html>
               </div>
               <div class="stat-info">
                 <h3 id="total-bookings">156</h3>
-                <p>Today\'s Bookings</p>
+                <p>Today's Bookings</p>
               </div>
             </div>
             <div class="stat-card">
@@ -110,7 +110,7 @@ echo '<!DOCTYPE html>
               </div>
               <div class="stat-info">
                 <h3 id="revenue">$12,540</h3>
-                <p>Today\'s Revenue</p>
+                <p>Today's Revenue</p>
               </div>
             </div>
           </div>
@@ -136,13 +136,13 @@ echo '<!DOCTYPE html>
               <i class="fas fa-door-open"></i>
               <span>Add Room</span>
             </button>
-            <button class="action-btn" onclick="quickAction('invoice')">
-              <i class="fas fa-file-invoice"></i>
-              <span>Generate Invoice</span>
+            <button class="action-btn" onclick="quickAction('staff')">
+              <i class="fas fa-user-plus"></i>
+              <span>Add Staff</span>
             </button>
             <button class="action-btn" onclick="quickAction('report')">
-              <i class="fas fa-print"></i>
-              <span>Print Report</span>
+              <i class="fas fa-chart-bar"></i>
+              <span>View Reports</span>
             </button>
           </div>
         </div>
@@ -151,7 +151,7 @@ echo '<!DOCTYPE html>
         <div class="recent-bookings">
           <div class="section-header">
             <h3>Recent Bookings</h3>
-            <a href="pages/bookings.html" class="view-all"
+            <a href="booking.html" class="view-all"
               >View All <i class="fas fa-arrow-right"></i
             ></a>
           </div>
@@ -180,9 +180,25 @@ echo '<!DOCTYPE html>
         <div class="room-status">
           <div class="section-header">
             <h3>Room Status Overview</h3>
+            <a href="pages/RoomPage.html" class="view-all"
+              >Manage Rooms <i class="fas fa-arrow-right"></i
+            ></a>
           </div>
           <div class="status-grid" id="room-status-grid">
             <!-- Room status will be loaded by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Staff On Duty -->
+        <div class="room-status">
+          <div class="section-header">
+            <h3>Staff On Duty Today</h3>
+            <a href="pages/staff.html" class="view-all"
+              >Manage Staff <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+          <div class="status-grid" id="staff-on-duty">
+            <!-- Staff on duty will be loaded by JavaScript -->
           </div>
         </div>
       </div>
@@ -191,9 +207,7 @@ echo '<!DOCTYPE html>
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-container">
-        <p>
-          &copy; 2025 Grand Luxe Hotel Management System. All rights reserved.
-        </p>
+        <p>&copy; 2025 Geda Hotel Management System. All rights reserved.</p>
         <div class="footer-links">
           <a href="#"><i class="fab fa-github"></i> GitHub</a>
           <a href="#"><i class="fas fa-question-circle"></i> Help</a>
@@ -206,8 +220,8 @@ echo '<!DOCTYPE html>
     <div id="toast" class="toast"></div>
 
     <!-- JavaScript -->
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/data.js"></script>
+    <script src="assets/JS/script.js"></script>
+    <script src="assets/JS/data.js"></script>
+    <script src="assets/JS/dashboard.js"></script>
   </body>
 </html>
-' > index.html

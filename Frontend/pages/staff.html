@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staff Management | Geda Hotel</title>
+    <link rel="stylesheet" href="../assets/CSS/style.css" />
+    <link rel="stylesheet" href="../assets/CSS/staff.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <i class="fas fa-hotel"></i>
+          <h1>Staff Management</h1>
+        </div>
+        <ul class="nav-menu">
+          <li>
+            <a href="../Index2.html"><i class="fas fa-home"></i> Dashboard</a>
+          </li>
+          <li>
+            <a href="pages/RoomPage.html"><i class="fas fa-bed"></i> Rooms</a>
+          </li>
+          <li>
+            <a href="pages/booking.html"
+              ><i class="fas fa-calendar-check"></i> Bookings</a
+            >
+          </li>
+          <li>
+            <a href="pages/customer.html"
+              ><i class="fas fa-users"></i> Customers</a
+            >
+          </li>
+          <li>
+            <a href="pages/staff.html" class="active"
+              ><i class="fas fa-user-tie"></i> Staff</a
+            >
+          </li>
+          <li>
+            <a href="pages/report.html"
+              ><i class="fas fa-chart-bar"></i> Reports</a
+            >
+          </li>
+        </ul>
+        <div class="nav-right">
+          <button class="btn-primary" onclick="openAddStaffModal()">
+            <i class="fas fa-plus"></i> Add Staff
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="staff-page">
+      <div class="container">
+        <!-- Staff Overview -->
+        <div class="staff-overview">
+          <h2>Staff Management</h2>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-icon">
+                <i class="fas fa-user-tie"></i>
+              </div>
+              <div class="stat-content">
+                <h3 id="total-staff">24</h3>
+                <p>Total Staff</p>
+              </div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-icon">
+                <i class="fas fa-concierge-bell"></i>
+              </div>
+              <div class="stat-content">
+                <h3 id="on-duty">18</h3>
+                <p>On Duty</p>
+              </div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="stat-content">
+                <h3 id="on-leave">3</h3>
+                <p>On Leave</p>
+              </div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-icon">
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="stat-content">
+                <h3 id="avg-rating">4.8</h3>
+                <p>Avg. Rating</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="staff-filters">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              id="staff-search"
+              placeholder="Search staff by name, role, or ID..."
+            />
+          </div>
+          <div class="filter-buttons">
+            <select id="department-filter">
+              <option value="">All Departments</option>
+              <option value="front-desk">Front Desk</option>
+              <option value="housekeeping">Housekeeping</option>
+              <option value="kitchen">Kitchen</option>
+              <option value="management">Management</option>
+              <option value="security">Security</option>
+            </select>
+            <select id="status-filter">
+              <option value="">All Status</option>
+              <option value="active">Active</option>
+              <option value="on-leave">On Leave</option>
+              <option value="inactive">Inactive</option>
+            </select>
+            <button class="btn-secondary" onclick="clearStaffFilters()">
+              <i class="fas fa-redo"></i> Clear Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Staff Table -->
+        <div class="staff-table-section">
+          <div class="section-header">
+            <h3>Staff Members</h3>
+            <button class="btn-secondary" onclick="exportStaffData()">
+              <i class="fas fa-download"></i> Export
+            </button>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Staff Member</th>
+                  <th>Position</th>
+                  <th>Department</th>
+                  <th>Contact</th>
+                  <th>Shift</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="staff-table-body">
+                <!-- Staff data will be loaded here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Shift Schedule -->
+        <div class="shift-schedule">
+          <div class="section-header">
+            <h3>Today\'s Shift Schedule</h3>
+            <button class="btn-secondary" onclick="printSchedule()">
+              <i class="fas fa-print"></i> Print
+            </button>
+          </div>
+          <div class="schedule-grid" id="schedule-container">
+            <!-- Shift schedule will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Add Staff Modal -->
+    <div id="addStaffModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h2>Add New Staff Member</h2>
+        <form id="add-staff-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="staff-name">Full Name *</label>
+              <input type="text" id="staff-name" required />
+            </div>
+            <div class="form-group">
+              <label for="staff-position">Position *</label>
+              <input type="text" id="staff-position" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="staff-department">Department *</label>
+              <select id="staff-department" required>
+                <option value="">Select Department</option>
+                <option value="front-desk">Front Desk</option>
+                <option value="housekeeping">Housekeeping</option>
+                <option value="kitchen">Kitchen</option>
+                <option value="management">Management</option>
+                <option value="security">Security</option>
+                <option value="maintenance">Maintenance</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="staff-shift">Shift *</label>
+              <select id="staff-shift" required>
+                <option value="">Select Shift</option>
+                <option value="morning">Morning (7 AM - 3 PM)</option>
+                <option value="evening">Evening (3 PM - 11 PM)</option>
+                <option value="night">Night (11 PM - 7 AM)</option>
+                <option value="flexible">Flexible</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="staff-email">Email *</label>
+              <input type="email" id="staff-email" required />
+            </div>
+            <div class="form-group">
+              <label for="staff-phone">Phone *</label>
+              <input type="tel" id="staff-phone" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="staff-address">Address</label>
+            <textarea id="staff-address" rows="2"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="staff-salary">Monthly Salary ($)</label>
+            <input type="number" id="staff-salary" min="1000" step="100" />
+          </div>
+
+          <div class="form-group">
+            <label for="staff-join-date">Join Date</label>
+            <input type="date" id="staff-join-date" />
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" onclick="closeModal()">
+              Cancel
+            </button>
+            <button type="submit" class="btn-primary">Add Staff Member</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Staff Details Modal -->
+    <div id="staffDetailsModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div id="staff-details-content">
+          <!-- Staff details will be loaded here -->
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <p>&copy; 2025 Geda Hotel Management System</p>
+      </div>
+    </footer>
+
+    <script src="../assets/JS/script.js"></script>
+    <script src="../assets/JS/staff.js"></script>
+  </body>
+</html>

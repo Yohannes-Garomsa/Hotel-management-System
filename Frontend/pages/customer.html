@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Management | Geda Hotel</title>
+    <link rel="stylesheet" href="assets/CSS/style.css" />
+    <link rel="stylesheet" href="assets/CSS/RoomPage.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <i class="fas fa-hotel"></i>
+          <h1>Customer Management</h1>
+        </div>
+        <ul class="nav-menu">
+          <li>
+            <a href="../Index2.html"><i class="fas fa-home"></i> Dashboard</a>
+          </li>
+          <li>
+            <a href="RoomPage.html"><i class="fas fa-bed"></i> Rooms</a>
+          </li>
+          <li>
+            <a href="booking.html"
+              ><i class="fas fa-calendar-check"></i> Bookings</a
+            >
+          </li>
+          <li>
+            <a href="customer.html" class="active"
+              ><i class="fas fa-users"></i> Customers</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="rooms-page">
+      <div class="container">
+        <h2>Customer Database</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Total Bookings</th>
+                <th>Total Spent</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="customers-table-body">
+              <!-- Customers will be loaded by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <p>&copy; 2025 Geda Hotel Management System</p>
+      </div>
+    </footer>
+
+    <script src="assets/JS/script.js"></script>
+    <script src="assets/JS/data.js"></script>
+    <script src="assets/customer.js"></script>
+  </body>
+</html>
