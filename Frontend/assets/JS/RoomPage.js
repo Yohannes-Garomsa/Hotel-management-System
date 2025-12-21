@@ -109,7 +109,7 @@ function createRoomCard(room) {
                     <span title="Room Size">
                         <i class="fas fa-expand-arrows-alt"></i> ${
                           room.capacity * 20
-                        } sqft
+                        } 
                     </span>
                 </div>
                 

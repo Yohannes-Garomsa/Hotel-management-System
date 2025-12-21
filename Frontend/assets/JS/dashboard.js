@@ -179,7 +179,7 @@ function setupDashboardEventListeners() {
       return;
     }
     if (action === "report") {
-      window.location.href = "pages/reports.html";
+      window.location.href = "pages/report.html";
       return;
     }
     // Call original function for other actions
@@ -192,7 +192,7 @@ function setupDashboardEventListeners() {
 // View Room Details
 function viewRoomDetails(roomNumber) {
   HotelSystem.showToast(`Viewing details for room ${roomNumber}`, "info");
-  window.location.href = `pages/rooms.html#room- ${roomNumber}`;
+  window.location.href = `pages/RoomPage.html#room- ${roomNumber}`;
 }
 
 // View Staff

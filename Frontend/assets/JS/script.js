@@ -50,7 +50,7 @@ function quickAction(action) {
                 document.getElementById("addRoomModal")?.classList.add("show");
                 break;
             case "book":
-                window.location.href = "pages/bookings.html";
+                window.location.href = "pages/booking.html";
                 break;
         }
     }, 500);
@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Show welcome message
     setTimeout(() => {
-        showToast("Welcome to Grand Luxe Hotel Management System!", "success");
+        showToast("Welcome to Geda Hotel Management System!", "success");
     }, 1000);
 });
 
