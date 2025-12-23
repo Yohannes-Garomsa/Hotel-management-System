@@ -1,3 +1,12 @@
+.navbar {
+  display: flex;
+  justify-content: right;
+}
+ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .rooms-page {
   padding: 2rem;
   max-width: 1400px;

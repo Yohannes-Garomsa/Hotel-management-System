@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Room | Geda Hotel Pro</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../assets/CSS/add-room.css" />
+  </head>
+  <body>
+    <div class="add-room-container">
+      <!-- Header -->
+      <div class="room-header">
+        <a href="../Index2.html" class="back-btn">
+          <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+
+        <div class="header-content">
+          <h1><i class="fas fa-plus-circle"></i> Add New Room</h1>
+          <p>Create a new luxury suite for your hotel</p>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+          <div class="step active" data-step="1">
+            <div class="step-circle">1</div>
+            <span class="step-label">Basic Info</span>
+          </div>
+          <div class="step" data-step="2">
+            <div class="step-circle">2</div>
+            <span class="step-label">Features</span>
+          </div>
+          <div class="step" data-step="3">
+            <div class="step-circle">3</div>
+            <span class="step-label">Images</span>
+          </div>
+          <div class="step" data-step="4">
+            <div class="step-circle">4</div>
+            <span class="step-label">Review</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Container -->
+      <div class="form-container">
+        <!-- Step 1: Basic Information -->
+        <div class="step-section active" id="step-1">
+          <h2><i class="fas fa-info-circle"></i> Basic Information</h2>
+          <p class="section-description">
+            Enter the basic details of your new room
+          </p>
+
+          <div class="form-group">
+            <label for="roomNumber"
+              ><i class="fas fa-hashtag"></i> Room Number *</label
+            >
+            <input
+              type="number"
+              id="roomNumber"
+              placeholder="e.g., 101"
+              min="1"
+              max="9999"
+              required
+            />
+            <div class="error-message" id="roomNumberError">
+              Please enter a valid room number (1-9999)
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="roomType"
+                ><i class="fas fa-bed"></i> Room Type *</label
+              >
+              <select id="roomType" required>
+                <option value="">Select Room Type</option>
+                <option value="single">Single Room</option>
+                <option value="double">Double Room</option>
+                <option value="suite">Suite</option>
+                <option value="deluxe">Deluxe Room</option>
+                <option value="presidential">Presidential Suite</option>
+                <option value="executive">Executive Suite</option>
+                <option value="family">Family Room</option>
+                <option value="honeymoon">Honeymoon Suite</option>
+              </select>
+              <div class="error-message" id="roomTypeError">
+                Please select a room type
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="floor"
+                ><i class="fas fa-layer-group"></i> Floor *</label
+              >
+              <select id="floor" required>
+                <option value="">Select Floor</option>
+                <option value="ground">Ground Floor</option>
+                <option value="1">1st Floor</option>
+                <option value="2">2nd Floor</option>
+                <option value="3">3rd Floor</option>
+                <option value="4">4th Floor</option>
+                <option value="5">5th Floor</option>
+                <option value="6">6th Floor</option>
+                <option value="7">7th Floor</option>
+                <option value="8">8th Floor</option>
+                <option value="9">9th Floor</option>
+                <option value="10">10th Floor</option>
+                <option value="penthouse">Penthouse</option>
+              </select>
+              <div class="error-message" id="floorError">
+                Please select a floor
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="roomName"
+                ><i class="fas fa-signature"></i> Room Name (Optional)</label
+              >
+              <input
+                type="text"
+                id="roomName"
+                placeholder="e.g., Ocean View Suite"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="maxGuests"
+                ><i class="fas fa-users"></i> Maximum Guests *</label
+              >
+              <select id="maxGuests" required>
+                <option value="">Select Max Guests</option>
+                <option value="1">1 Guest</option>
+                <option value="2">2 Guests</option>
+                <option value="3">3 Guests</option>
+                <option value="4">4 Guests</option>
+                <option value="5">5 Guests</option>
+                <option value="6">6 Guests</option>
+              </select>
+              <div class="error-message" id="maxGuestsError">
+                Please select maximum guests
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group price-input">
+            <label for="pricePerNight"
+              ><i class="fas fa-dollar-sign"></i> Price Per Night ($) *</label
+            >
+            <span>$</span>
+            <input
+              type="number"
+              id="pricePerNight"
+              placeholder="e.g., 250"
+              min="50"
+              max="5000"
+              step="10"
+              required
+            />
+            <div class="error-message" id="priceError">
+              Price must be between $50 and $5000
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="roomDescription"
+              ><i class="fas fa-align-left"></i> Room Description</label
+            >
+            <textarea
+              id="roomDescription"
+              rows="4"
+              placeholder="Describe the room features, view, and amenities..."
+            ></textarea>
+          </div>
+
+          <div class="form-navigation">
+            <button class="btn btn-outline" id="cancelBtn">
+              <i class="fas fa-times"></i> Cancel
+            </button>
+            <button class="btn btn-primary" id="nextBtn1">
+              Next Step <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Features & Amenities -->
+        <div class="step-section" id="step-2">
+          <h2><i class="fas fa-star"></i> Features & Amenities</h2>
+          <p class="section-description">
+            Select the features available in this room
+          </p>
+
+          <div class="form-group">
+            <label><i class="fas fa-cogs"></i> Room Features</label>
+            <div class="features-grid">
+              <!-- Wi-Fi -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="features" value="wifi" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-wifi"></i> Free Wi-Fi
+                </span>
+              </label>
+
+              <!-- TV -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="features" value="tv" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-tv"></i> Smart TV
+                </span>
+              </label>
+
+              <!-- AC -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="features" value="ac" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-snowflake"></i> Air Conditioning
+                </span>
+              </label>
+
+              <!-- Mini-bar -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="features" value="minibar" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-wine-bottle"></i> Mini-bar
+                </span>
+              </label>
+
+              <!-- Safe -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="features" value="safe" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-lock"></i> Safe Deposit Box
+                </span>
+              </label>
+
+              <!-- Coffee -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="features" value="coffee" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-coffee"></i> Coffee Maker
+                </span>
+              </label>
+
+              <!-- Bath -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="features" value="bath" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-bath"></i> Bathtub
+                </span>
+              </label>
+
+              <!-- Shower -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="features" value="shower" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-shower"></i> Rain Shower
+                </span>
+              </label>
+
+              <!-- Balcony -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="features" value="balcony" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-umbrella-beach"></i> Private Balcony
+                </span>
+              </label>
+
+              <!-- View -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="features" value="view" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-mountain"></i> Mountain View
+                </span>
+              </label>
+
+              <!-- Ocean -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="features" value="ocean" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-water"></i> Ocean View
+                </span>
+              </label>
+
+              <!-- City -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="features" value="city" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-city"></i> City View
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label
+              ><i class="fas fa-concierge-bell"></i> Additional Services</label
+            >
+            <div class="features-grid">
+              <!-- Room Service -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="services" value="room_service" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-bell"></i> 24/7 Room Service
+                </span>
+              </label>
+
+              <!-- Laundry -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="services" value="laundry" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-tshirt"></i> Laundry Service
+                </span>
+              </label>
+
+              <!-- Breakfast -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="services" value="breakfast" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-utensils"></i> Breakfast Included
+                </span>
+              </label>
+
+              <!-- Parking -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="services" value="parking" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-parking"></i> Free Parking
+                </span>
+              </label>
+
+              <!-- Gym -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="services" value="gym" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-dumbbell"></i> Gym Access
+                </span>
+              </label>
+
+              <!-- Spa -->
+              <label class="feature-checkbox">
+                <input type="checkbox" name="services" value="spa" />
+                <span class="checkmark"></span>
+                <span class="feature-label">
+                  <i class="fas fa-spa"></i> Spa Access
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-navigation">
+            <button class="btn btn-outline" id="backBtn2">
+              <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button class="btn btn-primary" id="nextBtn2">
+              Next Step <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Room Images -->
+        <div class="step-section" id="step-3">
+          <h2><i class="fas fa-images"></i> Room Images</h2>
+          <p class="section-description">
+            Upload high-quality images of your room (Max 5 images)
+          </p>
+
+          <div class="form-group">
+            <label><i class="fas fa-upload"></i> Upload Images</label>
+            <div class="file-upload">
+              <input type="file" id="roomImages" accept="image/*" multiple />
+              <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+              </div>
+              <div class="upload-text">
+                <h4>Click to upload images</h4>
+                <p>PNG, JPG, JPEG up to 5MB each</p>
+                <p>Recommended: 1920x1080px or higher</p>
+              </div>
+            </div>
+            <div class="error-message" id="imageError">
+              Please upload at least one image
+            </div>
+          </div>
+
+          <!-- Image Preview -->
+          <div class="image-preview-container" id="imagePreview">
+            <div class="preview-title">Selected Images:</div>
+            <div class="preview-grid" id="previewGrid">
+              <!-- Images will be added here by JavaScript -->
+            </div>
+          </div>
+
+          <div class="form-navigation">
+            <button class="btn btn-outline" id="backBtn3">
+              <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button class="btn btn-primary" id="nextBtn3">
+              Next Step <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4: Review & Submit -->
+        <div class="step-section" id="step-4">
+          <h2><i class="fas fa-check-circle"></i> Review & Submit</h2>
+          <p class="section-description">
+            Review all details before adding the room
+          </p>
+
+          <!-- Room Preview Card -->
+          <div class="room-preview">
+            <h3><i class="fas fa-eye"></i> Room Preview</h3>
+            <div class="preview-content">
+              <div class="preview-image" id="previewMainImage">
+                <i class="fas fa-image"></i>
+                <span>No image selected</span>
+              </div>
+              <div class="preview-details">
+                <h4 id="previewName">Room Name</h4>
+                <div class="preview-badge" id="previewType">Room Type</div>
+                <div class="preview-price" id="previewPrice">$0/night</div>
+                <p>
+                  <strong>Room Number:</strong>
+                  <span id="previewNumber">000</span>
+                </p>
+                <p>
+                  <strong>Floor:</strong> <span id="previewFloor">Ground</span>
+                </p>
+                <p>
+                  <strong>Max Guests:</strong> <span id="previewGuests">2</span>
+                </p>
+                <p>
+                  <strong>Description:</strong>
+                  <span id="previewDescription">No description provided</span>
+                </p>
+                <div class="preview-features" id="previewFeatures">
+                  <!-- Features will be added here -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-navigation">
+            <button class="btn btn-outline" id="backBtn4">
+              <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button class="btn btn-success" id="submitBtn">
+              <i class="fas fa-plus-circle"></i> Add Room
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+      <div class="toast-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <div class="toast-content">
+        <p class="toast-message">Room added successfully!</p>
+        <p class="toast-time">Just now</p>
+      </div>
+      <button class="toast-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <script src="../assets/JS/add-room.js"></script>
+  </body>
+</html>
