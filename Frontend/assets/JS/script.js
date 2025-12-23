@@ -32,28 +32,43 @@ function showToast(message, type = "info") {
 
 // Quick Actions Handler
 function quickAction(action) {
+    // Normalize action so callers can use e.g. "checkIn" or "checkin"
+    const act = String(action || '').toLowerCase();
+
     const actions = {
-        checkin: "Opening Check-in Form...",
-        checkout: "Opening Check-out Form...",
-        book: "Opening New Booking Form...",
-        room: "Opening Add Room Form...",
+        checkin: "Opening Check-in...",
+        checkout: "Opening Check-out...",
+        book: "Opening New Booking...",
+        room: "Opening Add Room...",
         invoice: "Generating Invoice...",
         report: "Generating Report..."
     };
-    
-    showToast(actions[action] || "Action triggered!", "success");
-    
-    // Simulate API call
+
+    showToast(actions[act] || "Action triggered!", "success");
+
+    // Small delay to show toast, then navigate / open target
     setTimeout(() => {
-        switch(action) {
-            case "room":
-                document.getElementById("addRoomModal")?.classList.add("show");
+        switch (act) {
+            case 'room':
+                // Navigate to rooms page and instruct it to open add-room modal
+                window.location.href = 'pages/RoomPage.html#addRoom';
                 break;
-            case "book":
-                window.location.href = "pages/booking.html";
+            case 'book':
+                // Navigate to booking page and instruct it to open new-booking modal
+                window.location.href = 'pages/booking.html#new';
+                break;
+            case 'checkin':
+                // Navigate to booking page to perform check-in flow
+                window.location.href = 'pages/booking.html?mode=checkin';
+                break;
+            case 'checkout':
+                window.location.href = 'pages/booking.html?mode=checkout';
+                break;
+            default:
+                // fallback: no-op or leave to dashboard-specific overrides
                 break;
         }
-    }, 500);
+    }, 350);
 }
 
 // Modal Functions
@@ -200,7 +215,8 @@ async function loadRoomStatus() {
 // Booking Actions
 function viewBooking(bookingId) {
     showToast(`Viewing booking #${bookingId}`, "info");
-    // In real app: window.location.href = `pages/booking-details.html?id=${bookingId}\`;
+    //  In real app:
+     window.location.href = `pages/booking.html?id=${bookingId}`;
 }
 
 function editBooking(bookingId) {
@@ -240,11 +256,83 @@ function initializeTooltips() {
 }
 
 function showTooltip(event) {
-    // Tooltip implementation can be added here
+    const el = event.currentTarget || event.target.closest('[title]');
+    if (!el) return;
+
+    const title = el.getAttribute('title');
+    if (!title) return;
+
+    // Prevent native browser tooltip
+    el.dataset.originalTitle = title;
+    el.removeAttribute('title');
+
+    // Reuse tooltip if exists
+    let tooltip = document.getElementById('hotel-tooltip');
+    if (!tooltip) {
+        tooltip = document.createElement('div');
+        tooltip.id = 'hotel-tooltip';
+        document.body.appendChild(tooltip);
+    }
+
+    tooltip.textContent = title;
+    // Basic styling (inline so it works without CSS file changes)
+    Object.assign(tooltip.style, {
+        position: 'absolute',
+        background: 'rgba(31,41,55,0.95)',
+        color: '#fff',
+        padding: '6px 10px',
+        borderRadius: '6px',
+        fontSize: '13px',
+        pointerEvents: 'none',
+        zIndex: 9999,
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        transition: 'opacity 120ms ease, transform 120ms ease',
+        opacity: '0',
+        transform: 'translateY(4px) translateX(-50%)'
+    });
+
+    // Position tooltip centered under element
+    const rect = el.getBoundingClientRect();
+    const left = rect.left + window.scrollX + rect.width / 2;
+    let top = rect.bottom + window.scrollY + 8; // 8px gap
+
+    // Temporarily show offscreen to measure width
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+    tooltip.style.transform = 'translateX(-50%) translateY(4px)';
+    tooltip.style.opacity = '0';
+
+    // Allow layout then show
+    requestAnimationFrame(() => {
+        // If it would overflow bottom, place above element
+        const ttRect = tooltip.getBoundingClientRect();
+        if (ttRect.bottom > (window.innerHeight || document.documentElement.clientHeight)) {
+            top = rect.top + window.scrollY - ttRect.height - 8;
+            tooltip.style.top = top + 'px';
+            tooltip.style.transform = 'translateX(-50%) translateY(-4px)';
+        }
+
+        tooltip.style.opacity = '1';
+        tooltip.style.transform = (tooltip.style.transform.includes('-4px') ? 'translateX(-50%) translateY(-6px)' : 'translateX(-50%) translateY(0)');
+    });
 }
 
 function hideTooltip(event) {
-    // Hide tooltip logic
+    const el = event.currentTarget || event.target.closest('[data-original-title]') || event.target.closest('[title]');
+    if (el && el.dataset.originalTitle) {
+        el.setAttribute('title', el.dataset.originalTitle);
+        delete el.dataset.originalTitle;
+    }
+
+    const tooltip = document.getElementById('hotel-tooltip');
+    if (tooltip) {
+        tooltip.style.opacity = '0';
+        tooltip.style.transform = 'translateX(-50%) translateY(4px)';
+        // remove after transition
+        setTimeout(() => {
+            if (tooltip.parentNode) tooltip.parentNode.removeChild(tooltip);
+        }, 150);
+    }
 }
 
 // Export functions for use in other modules

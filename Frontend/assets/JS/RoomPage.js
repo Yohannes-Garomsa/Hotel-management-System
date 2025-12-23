@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Setup event listeners
   setupEventListeners();
+  // If navigated with #addRoom, open the add room modal
+  if (window.location.hash === "#addRoom") {
+    openAddRoomModal();
+  }
 });
 
 // Load Rooms with Filters
