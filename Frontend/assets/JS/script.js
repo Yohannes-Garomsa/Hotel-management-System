@@ -51,18 +51,18 @@ function quickAction(action) {
         switch (act) {
             case 'room':
                 // Navigate to rooms page and instruct it to open add-room modal
-                window.location.href = 'pages/RoomPage.html#addRoom';
+                window.location.href = './pages/RoomPage.html#addRoom';
                 break;
             case 'book':
                 // Navigate to booking page and instruct it to open new-booking modal
-                window.location.href = 'pages/booking.html#new';
+                window.location.href = './pages/booking.html#new';
                 break;
             case 'checkin':
                 // Navigate to booking page to perform check-in flow
-                window.location.href = 'pages/booking.html?mode=checkin';
+                window.location.href = './pages/booking.html?mode=checkin';
                 break;
             case 'checkout':
-                window.location.href = 'pages/booking.html?mode=checkout';
+                window.location.href = './pages/booking.html?mode=checkout';
                 break;
             default:
                 // fallback: no-op or leave to dashboard-specific overrides

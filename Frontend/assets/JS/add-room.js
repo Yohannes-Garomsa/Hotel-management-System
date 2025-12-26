@@ -57,7 +57,7 @@ class RoomManager {
           "Are you sure you want to cancel? All entered data will be lost."
         )
       ) {
-        window.location.href = "index.html";
+        window.location.href = "Index2.html";
       }
     });
 
@@ -551,7 +551,7 @@ class RoomManager {
 
       // Redirect after delay
       setTimeout(() => {
-        window.location.href = "index.html";
+        window.location.href = "Index2.html";
       }, 2000);
     } catch (error) {
       // Hide loading overlay
